@@ -12,7 +12,7 @@ ENV BUILD_UNIXTIME=$BUILD_UNIXTIME
 ENV BUILD_DATE=$BUILD_DATE
 ENV CHECK_3RD_API=$CHECK_3RD_API
 ENV SKIP_TESTS=$SKIP_TESTS
-WORKDIR /go/src/github.com/mayswind/ezbookkeeping
+WORKDIR /go/src/github.com/mayconvm/ezbookkeeping
 COPY . .
 RUN docker/backend-build-pre-setup.sh
 RUN apk add git gcc g++ libc-dev
@@ -28,7 +28,7 @@ ENV RELEASE_BUILD=$RELEASE_BUILD
 ENV BUILD_PIPELINE=$BUILD_PIPELINE
 ENV BUILD_UNIXTIME=$BUILD_UNIXTIME
 ENV BUILD_DATE=$BUILD_DATE
-WORKDIR /go/src/github.com/mayswind/ezbookkeeping
+WORKDIR /go/src/github.com/mayconvm/ezbookkeeping
 COPY . .
 RUN docker/frontend-build-pre-setup.sh
 RUN apk add git
@@ -46,8 +46,8 @@ RUN mkdir -p /ezbookkeeping && chown 1000:1000 /ezbookkeeping \
   && mkdir -p /ezbookkeeping/log && chown 1000:1000 /ezbookkeeping/log \
   && mkdir -p /ezbookkeeping/storage && chown 1000:1000 /ezbookkeeping/storage
 WORKDIR /ezbookkeeping
-COPY --from=be-builder --chown=1000:1000 /go/src/github.com/mayswind/ezbookkeeping/ezbookkeeping /ezbookkeeping/ezbookkeeping
-COPY --from=fe-builder --chown=1000:1000 /go/src/github.com/mayswind/ezbookkeeping/dist /ezbookkeeping/public
+COPY --from=be-builder --chown=1000:1000 /go/src/github.com/mayconvm/ezbookkeeping/ezbookkeeping /ezbookkeeping/ezbookkeeping
+COPY --from=fe-builder --chown=1000:1000 /go/src/github.com/mayconvm/ezbookkeeping/dist /ezbookkeeping/public
 COPY --chown=1000:1000 conf /ezbookkeeping/conf
 COPY --chown=1000:1000 templates /ezbookkeeping/templates
 COPY --chown=1000:1000 LICENSE /ezbookkeeping/LICENSE
