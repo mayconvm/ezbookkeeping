@@ -1570,7 +1570,15 @@ func (a *TransactionsApi) TransactionParseImportFileHandler(c *core.WebContext) 
 		return nil, errs.Or(err, errs.ErrOperationFailed)
 	}
 
-	accountMap := a.accounts.GetVisibleAccountNameMapByList(accounts)
+	accountIdsMap := a.accounts.GetVisibleAccountIdMapByList(accounts)
+	accountNameMap := a.accounts.GetVisibleAccountNameMapByList(accounts)
+	accountMap := make(map[string]*models.Account)
+	for key, value := range accountIdsMap {
+		accountMap[key] = value
+	}
+	for key, value := range accountNameMap {
+		accountMap[key] = value
+	}
 
 	categories, err := a.transactionCategories.GetAllCategoriesByUid(c, user.Uid, 0, -1)
 

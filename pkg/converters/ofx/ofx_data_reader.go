@@ -23,7 +23,8 @@ import (
 
 const ofx1USAsciiEncoding = "usascii"
 const ofx1UnicodeEncoding = "unicode"
-const ofx1UTF8Encoding = "utf8" // non-standard ofx 1.x encoding, used by some banks (https://github.com/mayswind/ezbookkeeping/issues/48)
+const ofx1UTF8Encoding = "utf8"   // non-standard ofx 1.x encoding, used by some banks (https://github.com/mayswind/ezbookkeeping/issues/48)
+const ofx1UTF_8Encoding = "utf-8" // non-standard ofx 1.x encoding, used by some banks (https://github.com/mayswind/ezbookkeeping/issues/48)
 const ofx1SGMLDataFormat = "OFXSGML"
 
 var ofx2HeaderPattern = regexp.MustCompile("<\\?OFX( +[A-Z]+=\"[^=]*\")* *\\?>")
@@ -254,7 +255,7 @@ func readOFX1FileHeader(ctx core.Context, data []byte) (fileHeader *ofxFileHeade
 		if enc == nil {
 			enc = unicode.UTF16(unicode.LittleEndian, unicode.IgnoreBOM)
 		}
-	} else if fileEncoding == ofx1UTF8Encoding {
+	} else if fileEncoding == ofx1UTF8Encoding || fileEncoding == ofx1UTF_8Encoding {
 		enc, _ = charset.Lookup(ofx1UTF8Encoding)
 
 		if enc == nil {
